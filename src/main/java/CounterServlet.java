@@ -7,15 +7,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "HelloWorldServlet", urlPatterns = "/hello")
-public class HelloWorldServlet extends HttpServlet{
+@WebServlet(name = "CounterServlet", urlPatterns = "/counter")
+public class CounterServlet extends HttpServlet{
+    private int count = 0;
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        String name = req.getParameter("name");
+        if (req.getParameter("reset").equals("true")){
+            this.count = 0;
+        }
         res.setContentType("text/html");
         PrintWriter out = res.getWriter();
-        if (name != null){
-            out.println(String.format("<h1>Hello, %s</h1>",  name));
-        }
-        else out.println("<h1>Hello, World!</h1>");
+        out.println(++this.count);
     }
 }
