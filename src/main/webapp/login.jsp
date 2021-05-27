@@ -1,10 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title>Login Form</title>
-</head>
+    <%@ include file="partials/head.jsp" %>
 <body>
+    <%@ include file="partials/navbar.jsp" %>
     <form action="http://localhost:8080/adlister-1.0-SNAPSHOT/login" method="post">
         <label for="email">Email</label>
         <input id="email" type="text" name="email" required>
@@ -12,5 +11,6 @@
         <input id="password" type="text" name="password" required>
         <button type="submit">Submit</button>
     </form>
+    <%@ include file="partials/footer.jsp" %>
 </body>
 </html>
