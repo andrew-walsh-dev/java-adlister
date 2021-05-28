@@ -1,0 +1,53 @@
+import java.io.Serializable;
+
+public class Album implements Serializable{
+    private int id;
+    private String artist;
+    private String name;
+    private int releaseDate;
+    private float sales;
+    private String genre;
+
+    public Album(int id, String artist, String name, int releaseDate, float sales, String genre){
+        this.id = id;
+        this.artist = artist;
+        this.name = name;
+        this.releaseDate = releaseDate;
+        this.sales = sales;
+        this.genre = genre;
+    }
+    public int getId() {
+        return id;
+    }
+    public String getArtist() {
+        return artist;
+    }
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
+    public String getName(){
+        return this.name;
+    }
+    public void setName(String name){
+        this.name = name;
+    }
+    public int getReleaseDate() {
+        return this.releaseDate;
+    }
+    public void setReleaseDate(int releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+    public void setSales(float sales) {
+        this.sales = sales;
+    }
+    public float getSales() {
+        return this.sales;
+    }
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+    public String getGenre() {
+        return this.genre;
+    }
+
+}
