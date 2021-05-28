@@ -1,7 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
-    <%@ include file="partials/head.jsp" %>
+<head>   
+<%@ include file="partials/head.jsp" %>
+<title>Login</title>
+<link rel="stylesheet" type="text/css" href="partials/css/style.css" media="screen"/>
+</head> 
 <body>
     <%@ include file="partials/navbar.jsp" %>
     <form action="http://localhost:8080/adlister-1.0-SNAPSHOT/login" method="post">
