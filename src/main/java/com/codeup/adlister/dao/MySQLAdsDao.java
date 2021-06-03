@@ -1,7 +1,7 @@
 package com.codeup.adlister.dao;
 
 import com.codeup.adlister.models.Ad;
-import com.mysql.cj.jdbc.Driver;
+import com.mysql.jdbc.Driver;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,13 +13,13 @@ import java.util.List;
 public class MySQLAdsDao implements Ads {
     private Connection connection = null;
 
-    public MySQLAdsDao(Config config) {
+    public MySQLAdsDao() {
         try {
             DriverManager.registerDriver(new Driver());
             connection = DriverManager.getConnection(
-                config.getUrl(),
-                config.getUser(),
-                config.getPassword()
+                Config.getUrl(),
+                Config.getUser(),
+                Config.getPassword()
             );
         } catch (SQLException e) {
             throw new RuntimeException("Error connecting to the database!", e);
@@ -41,9 +41,8 @@ public class MySQLAdsDao implements Ads {
     @Override
     public Long insert(Ad ad) {
         try {
-            Statement stmt = connection.createStatement();
-            stmt.executeUpdate(createInsertQuery(ad), Statement.RETURN_GENERATED_KEYS);
-            ResultSet rs = stmt.getGeneratedKeys();
+            PreparedStatement stmt = createInsertQuery(ad);
+            ResultSet rs = stmt.executeQuery();
             rs.next();
             return rs.getLong(1);
         } catch (SQLException e) {
@@ -51,11 +50,13 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-    private String createInsertQuery(Ad ad) {
-        return "INSERT INTO ads(user_id, title, description) VALUES "
-            + "(" + ad.getUserId() + ", "
-            + "'" + ad.getTitle() +"', "
-            + "'" + ad.getDescription() + "')";
+    private PreparedStatement createInsertQuery(Ad ad) throws SQLException {
+        String sql = "INSERT INTO ads(user_id, title, description) VALUES (?, ?, ?)";
+        PreparedStatement stmt = this.connection.prepareStatement(sql);
+        stmt.setLong(1, ad.getUserId());
+        stmt.setString(2, ad.getTitle());
+        stmt.setString(3, ad.getDescription());
+        return stmt;
     }
 
     private Ad extractAd(ResultSet rs) throws SQLException {
